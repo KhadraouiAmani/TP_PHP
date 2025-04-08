@@ -31,6 +31,16 @@ if ($sectionId) {
     // Récupérer le nom de la section
     $sectionDetails = $sectionClass->getById($sectionId);
     $sectionName = $sectionDetails['designation'];  // Désignation de la section
+
+        
+    $searchTerm = $_GET['search'] ?? null;
+
+    if ($searchTerm) {
+        $sections = $sectionClass->searchByName($searchTerm);
+    } else {
+        $sections = $sectionClass->getAll();
+    }
+
 }
 ?>
 
@@ -39,6 +49,8 @@ if ($sectionId) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.4.2/css/buttons.dataTables.min.css">
     <title>Gérer les sections</title>
 </head>
 <body>
@@ -56,6 +68,7 @@ if ($sectionId) {
                 <th>Description</th>
                 <?php if ($isAdmin): ?>
                     <th>Actions</th>
+                    
                 <?php endif; ?>
             </tr>
         </thead>
@@ -69,10 +82,10 @@ if ($sectionId) {
                         <td>
                             <a href="edit_section.php?id=<?= $section['id'] ?>">Modifier</a> |
                             <a href="delete_section.php?id=<?= $section['id'] ?>" onclick="return confirm('Êtes-vous sûr de vouloir supprimer cette section ?');">Supprimer</a>
+                            <a href="sections.php?id=<?= $section['id'] ?>">Voir les étudiants</a>
                         </td>
                     <?php endif; ?>
-                    <!-- Lien pour voir les étudiants de la section -->
-                    <td><a href="sections.php?id=<?= $section['id'] ?>">Voir les étudiants</a></td>
+                    
                 </tr>
             <?php endforeach; ?>
         </tbody>
@@ -107,5 +120,31 @@ if ($sectionId) {
             </tbody>
         </table>
     <?php endif; ?>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            
+            $('table').DataTable();
+        });
+    </script>
+    <script src="https://cdn.datatables.net/buttons/2.4.2/js/dataTables.buttons.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.html5.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.print.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/pdfmake.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/vfs_fonts.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('table').DataTable().destroy();
+            $('table').DataTable({
+                dom: 'Bfrtip', 
+                buttons: [
+                    'copy', 'csv', 'excel', 'pdf'
+                ]
+            });
+        });
+
+    </script>
 </body>
 </html>

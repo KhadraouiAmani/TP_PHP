@@ -49,6 +49,137 @@ if ($searchTerm) {
     <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.4.2/css/buttons.dataTables.min.css">
 
     <title>Gérer les étudiants</title>
+    <style>
+        body {
+    font-family: Arial, sans-serif;
+    background-color: #f9f9f9;
+    margin: 0;
+    padding: 20px;
+    color: #333;
+}
+
+h2 {
+    text-align: center;
+    color: #007bff;
+    margin-bottom: 20px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+    background-color: #fff;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th, td {
+    padding: 12px 15px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+th {
+    background-color:rgb(138, 135, 246);
+    color: #fff;
+    font-weight: bold;
+}
+
+td img {
+    max-width: 50px;
+    max-height: 50px;
+    border-radius: 4px;
+}
+
+tr:hover {
+    background-color: #f1f1f1;
+}
+
+a {
+    display: inline-block;
+    margin: 10px 0;
+    padding: 10px 15px;
+    background-color:#007bff;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 4px;
+    font-size: 14px;
+    transition: background-color 0.3s ease;
+}
+
+a:hover {
+    background-color:  #0056b3;
+}
+
+.pagination {
+    text-align: center;
+    margin: 20px 0;
+}
+
+.pagination a {
+    display: inline-block;
+    margin: 0 5px;
+    padding: 8px 12px;
+    background-color: #007bff;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+}
+
+.pagination a:hover {
+    background-color: #0056b3;
+}
+
+.pagination span {
+    display: inline-block;
+    margin: 0 5px;
+    padding: 8px 12px;
+    background-color: #ddd;
+    color: #333;
+    border-radius: 4px;
+}
+
+.admin-actions a {
+    margin-right: 10px;
+    color: #dc3545;
+}
+
+.admin-actions a:hover {
+    color: #a71d2a;
+}
+
+button, .add-student, .back-dashboard {
+    display: inline-block;
+    margin-top: 10px;
+    padding: 10px 15px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    text-decoration: none;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button:hover, .add-student:hover, .back-dashboard:hover {
+    background-color: #0056b3;
+}
+
+.add-student {
+    margin-bottom: 20px;
+}
+
+.back-dashboard {
+    background-color: #6c757d;
+}
+
+.back-dashboard:hover {
+    background-color: #5a6268;
+}
+    </style>
 </head>
 <body>
     <h2>Liste des étudiants</h2>

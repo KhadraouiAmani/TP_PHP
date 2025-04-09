@@ -52,13 +52,53 @@ if ($sectionId) {
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.4.2/css/buttons.dataTables.min.css">
     <title>Gérer les sections</title>
+    <style>
+        body {
+    font-family: Arial, sans-serif;
+    background-color: #f9f9f9;
+    margin: 0;
+    padding: 20px;
+    color: #333;
+}
+
+h2, h3 {
+    text-align: center;
+    color: #007bff;
+    margin-bottom: 20px;
+}
+
+a {
+    display: inline-block;
+    margin: 10px 0;
+    padding: 10px 15px;
+    background-color:#007bff;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 4px;
+    font-size: 14px;
+    transition: background-color 0.3s ease;
+}
+
+a:hover {
+    background-color:  #0056b3;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    background-color: #fff;
+    box-shadow: 0
+}
+th {
+    background-color:rgb(138, 135, 246);
+    color: #fff;
+    font-weight: bold;
+}
+    </style>
 </head>
 <body>
     <h2>Liste des sections</h2>
-    <?php if ($isAdmin): ?>
-        <a href="add_section.php">Ajouter une section</a><br>
-    <?php endif; ?>
-    <a href="dashboard.php">Retour au tableau de bord</a>
 
     <table border="1">
         <thead>
@@ -146,5 +186,9 @@ if ($sectionId) {
         });
 
     </script>
+    <?php if ($isAdmin): ?>
+        <a href="add_section.php">Ajouter une section</a><br>
+    <?php endif; ?>
+    <a href="dashboard.php">Retour au tableau de bord</a>
 </body>
 </html>

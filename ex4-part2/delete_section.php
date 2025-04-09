@@ -29,3 +29,31 @@ if (count($studentsInSection) > 0) {
     exit;
 }
 ?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Suppression d'une section</title>
+    <style>
+        a {
+    display: inline-block;
+    margin: 10px 0;
+    padding: 10px 15px;
+    background-color:#007bff;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 4px;
+    font-size: 14px;
+    transition: background-color 0.3s ease;
+}
+
+a:hover {
+    background-color:  #0056b3;
+}
+    </style>
+</head>
+<body>
+    <a href="sections.php">Retour à la page précédente</a>
+</body>
+</html>

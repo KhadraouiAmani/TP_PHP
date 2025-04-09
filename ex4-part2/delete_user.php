@@ -22,7 +22,6 @@ $id = $_GET['id'];
 
 $userClass->delete($id);
 
-// Rediriger vers la page des users après la suppression
 header("Location: usersUsingRepo.php");
 exit;
 

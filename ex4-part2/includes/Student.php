@@ -1,21 +1,18 @@
 <?php
+require_once "Repository.php";
 class Student {
     private $conn;
 
-    // Constructeur
     public function __construct($dbConnection) {
         $this->conn = $dbConnection;
     }
 
-    // Méthode pour récupérer tous les étudiants
     public function getAll() {
-        /* $stmt = $this->conn->prepare("SELECT * FROM students"); */
         $stmt = $this->conn->prepare("SELECT s.*, sec.designation FROM students s LEFT JOIN sections sec ON s.section_id = sec.id");
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    // Méthode pour récupérer un étudiant par son ID
     public function getById($id) {
         $stmt = $this->conn->prepare("SELECT * FROM students WHERE id = :id");
         $stmt->execute([':id' => $id]);
@@ -28,19 +25,16 @@ class Student {
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    // Méthode pour ajouter un étudiant
     public function create($name, $birthday, $image, $section_id) {
         $stmt = $this->conn->prepare("INSERT INTO students (name, birthday, image, section_id) VALUES (:name, :birthday, :image, :section_id)");
         $stmt->execute([':name' => $name, ':birthday' => $birthday, ':image' => $image, ':section_id' => $section_id]);
     }
 
-    // Méthode pour mettre à jour un étudiant
     public function update($id, $name, $birthday, $image, $section_id) {
         $stmt = $this->conn->prepare("UPDATE students SET name = :name, birthday = :birthday, image = :image, section_id = :section_id WHERE id = :id");
         $stmt->execute([':name' => $name, ':birthday' => $birthday, ':image' => $image, ':section_id' => $section_id, ':id' => $id]);
     }
 
-    // Méthode pour supprimer un étudiant
     public function delete($id) {
         $stmt = $this->conn->prepare("DELETE FROM students WHERE id = :id");
         $stmt->execute([':id' => $id]);
@@ -61,15 +55,15 @@ class Student {
         return $stmt->fetchColumn();
     }
 
-        // Méthode pour récupérer les étudiants par ID de section
     public function getBySectionId($sectionId) {
         $stmt = $this->conn->prepare("SELECT * FROM students WHERE section_id = :section_id");
         $stmt->execute([':section_id' => $sectionId]);
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
     
-    
-
 
 }
+
+
 ?>
+

@@ -2,7 +2,6 @@
 require_once 'config.php';
 require_once 'includes/Student.php';
 
-// Vérifier si l'utilisateur est authentifié
 session_start();
 if (!isset($_SESSION['user'])) {
     header("Location: login.php");
@@ -10,22 +9,22 @@ if (!isset($_SESSION['user'])) {
 }
 
 
-// Définir les variables de pagination
+
 $limit = 10;
 $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
 $offset = ($page - 1) * $limit;
 
-//verifier si admin
+
 
 $isAdmin = $_SESSION['user']['role'] === 'admin';
 
-// Créer une instance de la classe Student
+
 $studentClass = new Student($conn);
 
-// Récupérer les étudiants avec pagination
+
 $students = $studentClass->getAllWithPagination($limit, $offset);
 
-// Récupérer le nombre total d'étudiants pour calculer le nombre de pages
+
 $totalStudents = $studentClass->getTotalStudents();
 $totalPages = ceil($totalStudents / $limit);
 

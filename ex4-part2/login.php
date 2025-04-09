@@ -5,11 +5,9 @@ require_once 'config.php';
 $message = "";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Récupération des données de l'utilisateur
     $username = $_POST['username'];    
     $email = $_POST['email'];
 
-    // Préparer la requête pour récupérer l'utilisateur par son 'username' et 'email'
     $stmt = $conn->prepare("SELECT * FROM users WHERE username = ? AND email = ?");
     $stmt->execute([$username, $email]);
     $user = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -18,11 +16,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if ($user) {
         $_SESSION['user'] = $user;
 
-        // Rediriger l'utilisateur selon son rôle
         if ($user['role'] == 'admin') {
-            header("Location: dashboard.php"); // Dashboard pour l'administrateur
+            header("Location: dashboard.php"); 
         } else {
-            header("Location: dashboard.php"); // Dashboard pour l'utilisateur normal
+            header("Location: dashboard.php"); 
         }
         exit;
     } else {

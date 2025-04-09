@@ -9,7 +9,8 @@ class Student {
 
     // Méthode pour récupérer tous les étudiants
     public function getAll() {
-        $stmt = $this->conn->prepare("SELECT * FROM students");
+        /* $stmt = $this->conn->prepare("SELECT * FROM students"); */
+        $stmt = $this->conn->prepare("SELECT s.*, sec.designation FROM students s LEFT JOIN sections sec ON s.section_id = sec.id");
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
@@ -19,6 +20,12 @@ class Student {
         $stmt = $this->conn->prepare("SELECT * FROM students WHERE id = :id");
         $stmt->execute([':id' => $id]);
         return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+
+    public function searchByName($name) {
+        $stmt = $this->conn->prepare("SELECT * FROM students WHERE name LIKE :name");
+        $stmt->execute([':name' => '%' . $name . '%']);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
     // Méthode pour ajouter un étudiant
@@ -60,7 +67,7 @@ class Student {
         $stmt->execute([':section_id' => $sectionId]);
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
-
+    
     
 
 

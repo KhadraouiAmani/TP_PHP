@@ -21,6 +21,12 @@ class Section {
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
+    public function searchByName($name) {
+        $stmt = $this->conn->prepare("SELECT * FROM sections WHERE designation LIKE :name");
+        $stmt->execute([':name' => '%' . $name . '%']); // Ajoutez '%' pour une recherche partielle
+        return $stmt->fetchAll(PDO::FETCH_ASSOC); // Retourne TOUS les résultats
+    }
+
     // Méthode pour ajouter une section
     public function create($designation, $description) {
         $stmt = $this->conn->prepare("INSERT INTO sections (designation, description) VALUES (:designation, :description)");

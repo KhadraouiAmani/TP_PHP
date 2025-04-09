@@ -3,7 +3,6 @@ require_once 'config.php';
 require_once 'includes/Section.php';
 session_start();
 
-// Vérifier si l'utilisateur est authentifié et a un rôle admin
 if (!isset($_SESSION['user']) || $_SESSION['user']['role'] != 'admin') {
     header("Location: dashboard.php");
     exit;
@@ -11,7 +10,6 @@ if (!isset($_SESSION['user']) || $_SESSION['user']['role'] != 'admin') {
 
 $sectionClass = new Section($conn);
 
-// Initialiser les variables pour le formulaire
 $designation = "";
 $description = "";
 
@@ -20,10 +18,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $designation = $_POST['designation'];
     $description = $_POST['description'];
 
-    // Ajouter la section
     $sectionClass->create($designation, $description);
 
-    // Rediriger vers la page des sections après l'ajout
     header("Location: sections.php");
     exit;
 }

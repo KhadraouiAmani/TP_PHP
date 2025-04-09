@@ -3,7 +3,6 @@ require_once 'config.php';
 require_once 'includes/Section.php';
 session_start();
 
-// Vérifier si l'utilisateur est authentifié et a un rôle admin
 if (!isset($_SESSION['user']) || $_SESSION['user']['role'] != 'admin') {
     header("Location: dashboard.php");
     exit;
@@ -11,7 +10,6 @@ if (!isset($_SESSION['user']) || $_SESSION['user']['role'] != 'admin') {
 
 $sectionClass = new Section($conn);
 
-// Vérifier si l'ID de la section est passé dans l'URL
 if (!isset($_GET['id'])) {
     header("Location: sections.php");
     exit;
@@ -19,26 +17,21 @@ if (!isset($_GET['id'])) {
 
 $id = $_GET['id'];
 
-// Récupérer la section par son ID
 $section = $sectionClass->getById($id);
 if (!$section) {
     header("Location: sections.php");
     exit;
 }
 
-// Initialiser les variables pour le formulaire
 $designation = $section['designation'];
 $description = $section['description'];
 
-// Traitement du formulaire de modification
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $designation = $_POST['designation'];
     $description = $_POST['description'];
 
-    // Mettre à jour la section
     $sectionClass->update($id, $designation, $description);
 
-    // Rediriger vers la page des sections après la modification
     header("Location: sections.php");
     exit;
 }

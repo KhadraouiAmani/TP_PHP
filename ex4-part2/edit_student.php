@@ -1,9 +1,9 @@
 <?php
 require_once 'config.php';
 require_once 'includes/Student.php';
-require_once 'includes/Section.php';  // Inclure la classe Section
+require_once 'includes/Section.php';  
 
-// Vérifier si l'utilisateur est authentifié et a un rôle admin
+
 session_start();
 if (!isset($_SESSION['user']) || $_SESSION['user']['role'] != 'admin') {
     header("Location: dashboard.php");
@@ -11,9 +11,9 @@ if (!isset($_SESSION['user']) || $_SESSION['user']['role'] != 'admin') {
 }
 
 $studentClass = new Student($conn);
-$sectionClass = new Section($conn);  // Créer une instance de Section pour récupérer les sections
+$sectionClass = new Section($conn); 
 
-// Vérifier si l'ID de l'étudiant est passé dans l'URL
+
 if (!isset($_GET['id'])) {
     header("Location: students.php");
     exit;
@@ -21,33 +21,32 @@ if (!isset($_GET['id'])) {
 
 $id = $_GET['id'];
 
-// Récupérer l'étudiant par son ID
+
 $student = $studentClass->getById($id);
 if (!$student) {
     header("Location: students.php");
     exit;
 }
 
-// Récupérer toutes les sections
+
 $sections = $sectionClass->getAll();
 
-// Initialiser des variables pour les champs du formulaire
+
 $name = $student['name'];
 $birthday = $student['birthday'];
 $image = $student['image'];
 $section_id = $student['section_id'];
 
-// Traitement du formulaire de modification
+
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $name = $_POST['name'];
     $birthday = $_POST['birthday'];
     $image = $_POST['image'];
     $section_id = $_POST['section_id'];
 
-    // Mettre à jour l'étudiant
+    // Mettre à jour
     $studentClass->update($id, $name, $birthday, $image, $section_id);
 
-    // Rediriger vers la page des étudiants après la modification
     header("Location: students.php");
     exit;
 }

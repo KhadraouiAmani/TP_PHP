@@ -1,6 +1,6 @@
 <?php
 require_once 'config.php';
-require_once 'includes/Section.php';
+require_once 'includes/SectionClassRepo.php';
 
 session_start();
 
@@ -14,30 +14,17 @@ if (!isset($_SESSION['user'])) {
 $isAdmin = $_SESSION['user']['role'] === 'admin';
 
 
-$sectionClass = new Section($conn);
+//we use the repo class
+$sectionClass = new SectionClassRepo($conn);
 
 
 $sections = $sectionClass->getAll();
 
+
 $sectionId = isset($_GET['id']) ? (int)$_GET['id'] : null;
 $students = [];
 
-if ($sectionId) {
-    $students = $sectionClass->getStudentsBySection($sectionId);
-    
- 
-    $sectionDetails = $sectionClass->getById($sectionId);
-    $sectionName = $sectionDetails['designation'];  
-        
-    $searchTerm = $_GET['search'] ?? null;
 
-    if ($searchTerm) {
-        $sections = $sectionClass->searchByName($searchTerm);
-    } else {
-        $sections = $sectionClass->getAll();
-    }
-
-}
 ?>
 
 <!DOCTYPE html>
@@ -76,9 +63,8 @@ if ($sectionId) {
                     <td><?= !empty($section['description']) ? htmlspecialchars($section['description']) : '(vide)' ?></td>
                     <?php if ($isAdmin): ?>
                         <td>
-                            <a href="edit_section.php?id=<?= $section['id'] ?>">Modifier</a> |
                             <a href="delete_section.php?id=<?= $section['id'] ?>" onclick="return confirm('Êtes-vous sûr de vouloir supprimer cette section ?');">Supprimer</a>
-                            <a href="sections.php?id=<?= $section['id'] ?>">Voir les étudiants</a>
+
                         </td>
                     <?php endif; ?>
                     
@@ -87,35 +73,6 @@ if ($sectionId) {
         </tbody>
     </table>
 
-    <?php if ($sectionId): ?>
-        <h3>Liste des étudiants dans la section <?= htmlspecialchars($sectionName) ?></h3>
-        <table border="1">
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Nom</th>
-                    <th>Date de naissance</th>
-                    <th>Image</th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php if (count($students) > 0): ?>
-                    <?php foreach ($students as $student): ?>
-                        <tr>
-                            <td><?= $student['id'] ?></td>
-                            <td><?= htmlspecialchars($student['name']) ?></td>
-                            <td><?= htmlspecialchars($student['birthday']) ?></td>
-                            <td><img src="<?= htmlspecialchars($student['image']) ?>" alt="Image de <?= $student['name'] ?>" width="50" height="50"></td>
-                        </tr>
-                    <?php endforeach; ?>
-                <?php else: ?>
-                    <tr>
-                        <td colspan="4">Aucun étudiant dans cette section.</td>
-                    </tr>
-                <?php endif; ?>
-            </tbody>
-        </table>
-    <?php endif; ?>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
     <script>
@@ -144,3 +101,4 @@ if ($sectionId) {
     </script>
 </body>
 </html>
+

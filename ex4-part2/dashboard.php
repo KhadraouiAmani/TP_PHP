@@ -68,6 +68,8 @@ a:last-child:hover {
     <?php if ($_SESSION['user']['role'] == 'admin'): ?>
         <a href="students.php">Gérer les étudiants</a><br>
         <a href="sections.php">Gérer les sections</a><br>
+        <a href="usersUsingRepo.php">Gérer les users</a><br>
+
     <?php elseif ($_SESSION['user']['role'] == 'user'): ?>
         <p>Vous avez un accès en lecture seule.</p>
         <a href="students.php">Voir les étudiants</a><br>

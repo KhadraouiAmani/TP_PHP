@@ -35,39 +35,46 @@ $students = [];
     <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.4.2/css/buttons.dataTables.min.css">
     <style>
         body {
-            font-family: sans-serif;
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+            margin: 0;
             padding: 20px;
-            background: #f5f5f5;
+            color: #333;
         }
 
-        h2 {
+        h2, h3 {
             text-align: center;
+            color: #007bff;
+            margin-bottom: 20px;
         }
 
         a {
-            margin-right: 10px;
-            color: blue;
+            display: inline-block;
+            margin: 10px 0;
+            padding: 10px 15px;
+            background-color:#007bff;
+            color: #fff;
             text-decoration: none;
+            border-radius: 4px;
+            font-size: 14px;
+            transition: background-color 0.3s ease;
+        }
+
+        a:hover {
+            background-color:  #0056b3;
         }
 
         table {
             width: 100%;
             border-collapse: collapse;
-            background: white;
+            margin: 20px 0;
+            background-color: #fff;
+            box-shadow: 0
         }
-
-        th, td {
-            padding: 8px;
-            border: 1px solid #ccc;
-            text-align: left;
-        }
-
         th {
-            background: #eee;
-        }
-
-        tr:hover {
-            background: #f0f0f0;
+            background-color:rgb(138, 135, 246);
+            color: #fff;
+            font-weight: bold;
         }
     </style>
 
